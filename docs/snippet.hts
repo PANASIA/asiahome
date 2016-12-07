@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>SEARCH'97 CD-Web Publisher Results</title>
+</head>
+<BODY  BGCOLOR="#FFFFFF">
+
+<% if (InStr(RTrim($$ClientSoftware), "Exp") > 0) %>
+<font size=-1><b>This software will expire in <font color=red><i><% Print (Right (RTrim(ClientSoftware),2)) %></i></font> days. You can <a href="http://www.verity.com/publish/cdpub/index.html" target="NEWWIN">purchase</a> a full license and then <a href="lic.htm" target="NEWWIN">update</a> your installation.<HR></b></font>
+<% Endif %>
+
+<CENTER>
+  <% if prevpageurl then %>
+    <A HREF="$$(prevpageurl)">[Previous Page]</A>
+  <% endif %>
+Results <strong>$$DocsStart-$$DocsEnd</strong> [<strong>$$DocsFound/$$DocsSearched</strong> matched]
+  <% if nextpageurl then %>
+    <A HREF="$$(nextpageurl)">[Next Page]</A>
+  <% endif %>
+
+</CENTER>
+<hr>
+<% if Count( result.documents ) > 0 %>
+<% if isempty($$QueryText) %>
+  <% emp=1 %>
+<% else %>
+  <% emp=0 %>
+<% endif %>
+
+<% unix = InStr( $$ClientSoftware, "X11") %>
+<% msie = InStr( $$ClientSoftware, "MSIE") %>
+<% win  = InStr( $$ClientSoftware, "Win") %>
+<% Rank = $$DocsStart %>
+<table>
+<% foreach doc in result.documents %>
+<% ext =  LCase(Right($$doc.DOC_FN,3)) %>
+<tr>
+    <td valign=top align=right><strong> <%Rank%></strong></td>
+    <td align=left>
+	<% if ext == "htm" || ext == "tml" || ext == "asc" || ext == "txt" Then %>
+    	   <a href="$$doc.URL_HTML" target="ViewArea">
+	<% elseif ext == "pdf" Then %>
+    	<% if win > 0 then %>
+    		<% if msie == 0 then %>
+    	   		<a href="$$doc.URL_XML" target="ViewArea">
+			<% else %>
+       			<a href= >
+    		<% endif %>
+    	<% else %>
+       		<a href="file:///<% URLEscPath($$doc) %>"  target="ViewArea">
+    	<% endif %>
+   	<% else %>
+    	<% if win > 0 then %>
+        <% if msie == 0 then %>
+    	   	<a href="$$doc.XML" target="ViewArea">
+        <% else %>
+          <a href="/vtopic.isapi?action=format&src=<% URLEsc($$doc.XML) %>" target="ViewArea">
+        <% endif %>
+		<% elseif unix > 0 Then %>
+       		<a href="$$doc.URL_HTML" target="ViewArea">
+		<% else%>
+       		<a href="file:///<% URLEscPath($$doc) %>"  target="ViewArea">
+    	<% endif %>
+    <% endif %>
+
+   	<% if isempty ($$doc.Title) %>
+   		<% if isempty ($$doc.Subject) %>
+			<strong>$$doc.VdkVgwKey</strong>
+		<% else %>
+			<strong>$$doc.subject</strong>
+		<% endif %>
+	<% else %>
+		<strong>$$doc.Title</strong>
+	<% endif %>
+	</A>
+    <% if emp<1 %>
+	  <I><font color=red>(Score: $$Score $$Punktzahl)</font></I>
+    <% endif %>
+    <BR><% Left(doc.snippet,540) %>
+	<BR><strong>
+   	<% if win > 0 then %>
+		<A HREF="<% $$SeverURL %>/launch.isapi?fn=<% $$doc %>" target="ViewArea"> Location: $$doc </A>
+	<% else %>
+		Location: $$doc
+	<% endif %>
+		</strong>
+       <% if Val($$doc.CONTENT_LENGTH) > 0 then %>
+         ($$(doc.CONTENT_LENGTH) bytes)
+       <% else %>
+       <% if Val($$doc.SIZE) > 0  %>
+         ($$(doc.SIZE) bytes)
+       <% endif %>
+       <% endif %>
+
+    </td>
+</tr>
+<% Rank = Rank + 1 %>
+<% endfor %>
+</table>
+<% if Count( result.pageurls ) > 1 %>
+  <HR>
+  <CENTER>
+  <% if prevpageurl then %>
+    <A HREF="$$(prevpageurl)">[Previous Page]</A>
+  <% endif %>
+
+  <% if nextpageurl then %>
+    <A HREF="$$(nextpageurl)">[Next Page]</A>
+  <% endif %>
+  </CENTER>
+
+<% endif %>
+
+<% else %>
+
+<center><strong>No documents matched your query.</strong></center>
+
+<% endif %>
+
+</body>
+</html>
+
+
+

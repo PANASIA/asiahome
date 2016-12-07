@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<% HLNavigate="ON" %>
+
+<%   OutStr = ""                                       %>
+<%   LastIndex = InStr(1, $$doc.doc, "\\")             %>
+<%   LastIndex = InStr(LastIndex, $$doc.doc, "\\")  %>
+<%   For J = 1 TO 10000                                %>
+<%     Index = InStr(LastIndex, $$doc.doc, "\\")       %>
+<%     If Index = 0 Then                               %>
+<%       ExitFor                                       %>
+<%     Else                                            %>
+<%       OutStr = OutStr + Mid($$doc.doc, LastIndex, Index - LastIndex) %>
+<%       OutStr = OutStr + "/"                         %>
+<%       LastIndex = Index + 1                         %>
+<%     EndIf                                           %>
+<%   EndFor                                            %>
+<%   OutStr = OutStr + Mid($$doc.doc, LastIndex)       %>
+
+<Base HREF=$$ServerURL/<% OutStr %>>
+
+<% if Exist(Title) %>
+  <TITLE>$$TITLE</TITLE>
+<% endif %>
+</HEAD>
+
+$$HTMLBodyPrint
+</HTML>

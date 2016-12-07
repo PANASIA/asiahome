@@ -1,0 +1,16 @@
+<html>
+<title> view </title>
+<body>
+<OBJECT ID="View_Ocx1" WIDTH=500 HEIGHT=500
+CLASSID="CLSID:26ACD2E7-348D-11D0-B75D-00A024964FB3">
+    <PARAM NAME="URL" VALUE="$$src">
+    <PARAM NAME="_Version" VALUE="65536">
+    <PARAM NAME="_ExtentX" VALUE="2646">
+    <PARAM NAME="_ExtentY" VALUE="1341">
+    <PARAM NAME="_StockProps" VALUE="9">
+    <PARAM NAME="ForeColor" VALUE="-842150451">
+    <PARAM NAME="BackColor" VALUE="-842150451">
+</OBJECT>
+</body>
+</html>
+

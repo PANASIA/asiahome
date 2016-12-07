@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Baan CD-ROM ( paginated wordsearch result)</title>
+</head>
+
+<body background="/data/interface/targtil2.jpg" bgcolor="#FFFFFF"
+link="#0000FF" vlink="#800080">
+
+<!----------------------------------------------------------------- --><!----------------------------------------------------------------- -->
+<p><font color="#000000" size="6" face="Tahoma">Search </font><font
+color="#000000" size="5" face="Tahoma">Results</font><font
+color="#000000" size="5"></p><!-- ____________________________nieuwe zoekactie_________________________ --></font>
+
+Your query &quot; <b><% PrintHTMLEsc( $$request.queryText ) %></b>&quot;
+matched $$DocsFound documents out of $$DocsSearched . $$DocsCount
+documents are displayed. 
+<!-- ____________________________nieuwe zoekactie_________________________ --> 
+
+<hr>
+
+
+
+<% if Count( result.documents ) > 0 Then %>
+	<table border="0" >
+	<% foreach doc in result.documents %>
+		<tr>
+		<% if Right($$doc.DOC_FN,4) == ".pdf" Then %> 
+			<td>
+				<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			</td>
+			<td >
+				<IMAGE SRC="/data/images/pdfdoc.gif" ALT="PDF">
+			</td>
+			<td >
+				<a href="file:///$$request.drive:$$Doc.doc">$$Rank</a>
+			</td>
+			<td>
+				<a href="file:///$$request.drive:$$Doc.doc"> 
+				<% ($$doc.Title) ? $$doc.Title : $$doc %></a>
+			</td>
+			
+		
+		<% elseif Right($$doc.DOC_FN,4) == ".htm" || Right($$doc.DOC_FN,5) == ".html" Then %>
+			<td>
+				<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			</td>
+			<td >
+				<IMAGE SRC="/data/images/htmdoc.gif" ALT="HTML">
+			</td>
+			<td >
+				<a href="file:///$$request.drive:$$Doc.doc">$$Rank</a>
+			</td>
+			<td>
+				<a href="file:///$$request.drive:$$Doc.doc"> 
+				<% ($$doc.Title) ? $$doc.Title : $$doc %></a>
+			</td>
+
+
+
+		<% elseif RIGHT($$doc.DOC_FN,4) == ".txt" || RIGHT($$doc.DOC_FN,5) == ".text" Then %>
+			<td>
+				<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			</td>
+			<td >
+				<IMAGE SRC="/data/images/txtdoc.gif" ALT="TXT">
+			</td>
+			<td >
+				<a href="file:///$$request.drive:$$Doc.doc">$$Rank</a>
+			</td>
+			<td>
+				<a href="file:///$$request.drive:$$Doc.doc"> 
+				<% ($$doc.Title) ? $$doc.Title : $$doc%></a>
+			</td>
+
+		
+		<%else %>
+			<% if queryText Then %>
+			<td>
+				<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			</td>
+			<td >
+				<IMAGE SRC="/data/images/wysdoc.gif" ALT="DOC">
+			</td>
+			<td >
+				<a href="file:///$$request.drive:$$Doc.doc">$$Rank</a>
+			</td>
+			<% Index = InStr( $$ClientSoftware, "MSIE") %> 
+			<% If Index = 0 Then %>
+				<td>
+					<a href="file:///$$request.drive:$$Doc.doc"> 
+					<% ($$doc.Title) ? $$doc.Title : $$doc %></a>
+				</td> 
+			<% Else %> 
+				<!--<td>
+					<a href="/vtopic11.isapi?action=format&amp;src=<%urlesc(doc.xml)%>">
+					<% ($$doc.Title) ? $$doc.Title : $$doc.doc %> </a>
+				</td> -->
+			<td>
+			<a href="file:///$$request.drive:$$Doc.doc"> 
+			<% ($$doc.Title) ? $$doc.Title : $$doc %></a>
+			</td>
+
+			<% Endif %>
+			<% else %>
+			<td>
+			
+				<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			</td>
+			<td>
+				<IMAGE SRC="/data/images/wysdoc.gif" ALT="DOC"> 
+			</td>	
+			<td>
+				<a href="file:///$$request.drive:$$Doc.doc">$$Rank</a>
+			</td>
+			<td>
+			<a href="file:///$$request.drive:$$Doc.doc"> 
+			<% ($$doc.Title) ? $$doc.Title : $$doc %></a>
+			</td>
+			<% endif %>
+			
+			<% endif %> 
+		</tr>
+<% endfor %>
+</table>
+
+
+	<% else %>    
+	<b>No documents matched your query.</b> 
+
+<% endif %>
+
+<!---
+
+<% if Count( result.documents ) > 0 Then %>
+	<% foreach doc in result.documents %>
+		<% if Right($$doc.DOC_FN,4) == ".pdf" Then %> 
+			<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			<IMAGE SRC="/data/images/pdfdoc.gif" ALT="PDF"> $$Rank 
+			<p><a href="$$(doc.URL_PDF)">
+			<% ($$doc.Title) ? $$doc.Title : $$doc.VdkVgwKey %> </a></p>
+		
+		<% elseif Right($$doc.DOC_FN,4) == ".htm" || Right($$doc.DOC_FN,5) == ".html" Then %>
+			<img src="/data/images/space.gif" width="80" height="10" 
+			naturalsizeflag="3"> 
+			<IMAGE SRC="/data/images/htmdoc.gif" ALT="HTM"> $$Rank 
+			<p><a href="$$(doc.URL_HTML)">
+			<% ($$doc.Title) ? $$doc.Title : $$doc.VdkVgwKey %> </a></p>
+
+		<% elseif RIGHT($$doc.DOC_FN,4) == ".txt" || RIGHT($$doc.DOC_FN,5) == ".text" Then %>
+			<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			<IMAGE SRC="/data/images/txtdoc.gif" ALT="TXT"> $$Rank 
+			<p><a href="$$(doc.URL_HTML)">
+			<% ($$doc.Title) ? $$doc.Title : $$doc.VdkVgwKey %> </a></p>
+		
+		<%else %>
+			<% if queryText Then %> 
+			<img src="/data/images/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			<IMAGE SRC="/data/images/wysdoc.gif" ALT="DOC"> $$Rank 
+			<% Index = InStr( $$ClientSoftware, "MSIE") %> 
+			<% If Index = 0 Then %> 
+			<p><a href="$$doc.xml">
+			<% Else %> 
+			<p><a href="/vtopic11.isapi?action=format&amp;src=<%urlesc(doc.xml)%>">
+			<% Endif %>
+			<% ($$doc.Title) ? $$doc.Title : $$doc.VdkVgwKey %>
+			</a></p>
+			<% else %>
+			<img src="/images/backs/space.gif" width="80" height="10" naturalsizeflag="3"> 
+			<IMAGE SRC="/data/images/wysdoc.gif" ALT="DOC"> $$Rank 
+			<p><a href="$$doc.url_html">
+			<% ($$doc.Title) ? $$doc.Title : $$doc.VdkVgwKey %> 
+			</a></p>
+			<% endif %>
+			
+			<% endif %> 
+<% endfor %><% else %>    <b>No documents matched your query.</b> <% endif %>
+-->
+
+<hr>
+<!-- ___________________Navigatie_________________________________ -->
+
+<font size="2" face="Tahoma"><b>Results List Navigation:</b> 
+
+<% if PrevPageURL then %> 
+</font><a href="$$(PrevPageURL)&drive=$$request.drive">
+<font size="2" face="Tahoma">[Prev]</font></a>
+<% endif%> 
+<% I = 1 %> 
+<% Foreach url in Result.PageUrls %> 
+	<% If I <> PageNumber Then %> 
+	<a href="$$url&drive=$$request.drive">
+	<font size="2" face="Tahoma">$$I</font></a> 
+	<% Else %> 
+	<font size="2" face="Tahoma">$$I </font>
+	<% Endif %> 
+	<%I = I + 1 %> 
+<% Endfor %>
+
+<% If NextPageURL Then %>
+	<a href="$$NextPageURL&drive=$$request.drive">
+	<font size="2" face="Tahoma">[Next]</font></a>
+	<% Endif %>  
+	
+<!-- ___________________Navigatie_______________________________ -->
+<hr>
+
+</body>
+</html>

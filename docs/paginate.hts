@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Baan CD-ROM (paginated wordsearch result)</title>
+</head>
+<body background="/data/interface/targtil2.jpg" bgcolor="#FFFFFF"
+link="#0000FF" vlink="#800080">
+
+<!----------------------------------------------------------------- --><!----------------------------------------------------------------- -->
+<p><font color="#000000" size="6" face="Tahoma">Search </font><font
+color="#000000" size="5" face="Tahoma">Results</font><font
+color="#000000" size="5"></p><!-- ____________________________nieuwe zoekactie_________________________ --></font>
+
+Your query &quot; <b><% PrintHTMLEsc( $$request.queryText ) %></b>&quot;
+matched $$DocsFound documents out of $$DocsSearched . $$DocsCount
+documents are displayed. 
+<!-- ____________________________nieuwe zoekactie_________________________ --> 
+<hr>
+
+<table border="0">
+    <tr>
+        <th align="left"><font size="2" face="Tahoma"><strong>Rank</strong></font></th>
+        <th align="left"><font size="2" face="Tahoma"><strong>Score</strong></font></th>
+        <th align="left"><font size="2" face="Tahoma"><strong>Title</strong></font></th>
+    </tr>
+    <font size="2" face="Tahoma">
+	<% Foreach Doc in Result.Documents %></font>
+    <tr>
+        <td><font size="2" face="Tahoma">$$doc.Rank</font> </td>
+        <td><font size="2" face="Tahoma">$$Doc.Score</font> </td>
+    <td>
+		<% if (doc.Title == "") OR (doc.Title == "Untitled Document") %> 
+		<a href="file:///$$request.drive:$$Doc.doc"  >
+		<font size="2" face="Tahoma">No title (alternative) $$Doc</font></a> 
+		
+		<% else %> 
+		
+		<a href="file:///$$request.drive:$$Doc.doc" target="target">
+		<font size="2" face="Tahoma"> $$Doc.Title </font></a> 
+		<% endif %> 
+		</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+		<font size="2" face="Tahoma">  Excerpt from this document: <br>
+        <% Left($$DOC.snippet, 150) %> ... </font>
+		</td>
+    </tr>
+	<tr>
+        <td colspan="5">
+		<a href="file:///$$request.drive:$$Doc.doc">
+		Location: $$doc </a>
+		<hr size="1" width="50%" color="#008080">
+		</td>
+    </tr>
+    <% Endfor %>
+</table>
+
+<hr>
+<!-- ___________________Navigatie_________________________________ -->
+
+<font size="2" face="Tahoma"><b>Results List Navigation:</b> 
+
+<% if PrevPageURL then %> 
+</font><a href="$$(PrevPageURL)&drive=$$request.drive">
+<font size="2" face="Tahoma">[Prev]</font></a>
+<% endif%> 
+<% I = 1 %> 
+<% Foreach url in Result.PageUrls %> 
+	<% If I <> PageNumber Then %> 
+	<a href="$$url&drive=$$request.drive">
+	<font size="2" face="Tahoma">$$I</font></a> 
+	<% Else %> 
+	<font size="2" face="Tahoma">$$I </font>
+	<% Endif %> 
+	<%I = I + 1 %> 
+<% Endfor %>
+
+<% If NextPageURL Then %>
+	<a href="$$NextPageURL&drive=$$request.drive">
+	<font size="2" face="Tahoma">[Next]</font></a>
+	<% Endif %>  
+	
+<!-- ___________________Navigatie_______________________________ -->
+<hr>
+</body>
+</html>
